@@ -25,14 +25,12 @@ import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKRequest.VKRequestListener;
 import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.methods.VKApiCaptcha;
-import com.vk.sdk.api.model.VKApiLink;
 import com.vk.sdk.api.model.VKApiPhoto;
 import com.vk.sdk.api.model.VKAttachments;
 import com.vk.sdk.api.model.VKPhotoArray;
 import com.vk.sdk.api.model.VKWallPostResult;
 import com.vk.sdk.api.photo.VKImageParameters;
 import com.vk.sdk.api.photo.VKUploadImage;
-import com.vk.sdk.util.VKStringJoiner;
 
 import java.io.IOException;
 
@@ -78,7 +76,7 @@ public class TestActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        VKUIHelper.onActivityResult(requestCode, resultCode, data);
+        VKUIHelper.onActivityResult(this, requestCode, resultCode, data);
     }
 
     /**
@@ -97,13 +95,13 @@ public class TestActivity extends ActionBarActivity {
             view.findViewById(R.id.users_get).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    VKRequest request = VKApi.users().get(VKParameters.from(VKApiConst.FIELDS,
-//                            "id,first_name,last_name,sex,bdate,city,country,photo_50,photo_100," +
-//                            "photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online," +
-//                            "online_mobile,lists,domain,has_mobile,contacts,connections,site,education," +
-//                            "universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message," +
-//                            "status,last_seen,common_count,relation,relatives,counters"));
-                    VKRequest request = VKApi.users().get(VKParameters.from(VKApiConst.USER_IDS, "1,2"));
+                    VKRequest request = VKApi.users().get(VKParameters.from(VKApiConst.FIELDS,
+                            "id,first_name,last_name,sex,bdate,city,country,photo_50,photo_100," +
+                            "photo_200_orig,photo_200,photo_400_orig,photo_max,photo_max_orig,online," +
+                            "online_mobile,lists,domain,has_mobile,contacts,connections,site,education," +
+                            "universities,schools,can_post,can_see_all_posts,can_see_audio,can_write_private_message," +
+                            "status,last_seen,common_count,relation,relatives,counters"));
+//                    VKRequest request = VKApi.users().get(VKParameters.from(VKApiConst.USER_IDS, "1,2"));
                     request.secure = false;
                     request.useSystemLanguage = false;
                     startApiCall(request);
@@ -152,6 +150,13 @@ public class TestActivity extends ActionBarActivity {
                         showError(error);
                     }
                 });
+                }
+            });
+            view.findViewById(R.id.test_validation).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final VKRequest test = new VKRequest("account.testValidation");
+                    startApiCall(test);
                 }
             });
 

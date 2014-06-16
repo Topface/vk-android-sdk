@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Looper;
 
 import com.vk.sdk.VKSdkVersion;
 import com.vk.sdk.VKUIHelper;
@@ -205,19 +204,26 @@ public class VKHttpClient extends DefaultHttpClient {
      * @param operation Operation to start
      */
     public static void enqueueOperation(final VKAbstractOperation operation) {
-        //Check thread
-        if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
-            mBackgroundExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    enqueueOperation(operation);
-                }
-            });
-            return;
-        }
-
-        operation.start();
+        mBackgroundExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+	            operation.start();
+            }
+        });
     }
+
+	/**
+	 * Cancel http operation request on background thread (to prevent exception)
+	 * @param operation executing http operation
+	 */
+	public static void cancelHttpOperation(final VKHttpOperation operation) {
+		mBackgroundExecutor.execute(new Runnable() {
+			@Override
+			public void run() {
+				operation.getUriRequest().abort();
+			}
+		});
+	}
 
 
 }
