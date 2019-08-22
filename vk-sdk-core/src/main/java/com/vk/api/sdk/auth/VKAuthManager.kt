@@ -34,8 +34,8 @@ import com.vk.api.sdk.utils.VKUtils
 import java.util.*
 
 internal class VKAuthManager {
-    fun login(activity: Activity, scopes: Collection<VKScope>) {
-        val params = VKAuthParams(getAppId(activity), scopes)
+    fun login(activity: Activity, appId: Int, scopes: Collection<VKScope>) {
+        val params = VKAuthParams(appId, scopes)
         if (VKUtils.isAppInstalled(activity, VK_APP_PACKAGE_ID) && VKUtils.isIntentAvailable(activity, VK_APP_AUTH_ACTION)) {
             startAuthActivity(activity, params)
         } else {
