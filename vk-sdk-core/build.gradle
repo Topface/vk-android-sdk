@@ -40,6 +40,22 @@ android {
     lintOptions {
         warningsAsErrors true
     }
+    buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        qa {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        staging {
+            matchingFallbacks = ["release", "debug", "qa"]
+        }
+    }
 }
 
 configurations {

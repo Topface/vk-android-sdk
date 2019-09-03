@@ -33,13 +33,13 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.view.View
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
+import androidx.annotation.RequiresApi
 import com.vk.api.sdk.R
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiValidationHandler

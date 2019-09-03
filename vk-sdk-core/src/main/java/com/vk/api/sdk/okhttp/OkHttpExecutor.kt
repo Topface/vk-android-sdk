@@ -25,7 +25,7 @@ package com.vk.api.sdk.okhttp
 
 import android.net.Uri
 import android.os.Looper
-import android.support.v4.util.LongSparseArray
+import androidx.collection.LongSparseArray
 import com.vk.api.sdk.OauthHttpUrlPostCall
 import com.vk.api.sdk.VKApiProgressListener
 import com.vk.api.sdk.VKOkHttpProvider

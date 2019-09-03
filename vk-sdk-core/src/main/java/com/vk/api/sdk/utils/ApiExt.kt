@@ -34,8 +34,7 @@ internal inline fun <T, N : Number> T.applyPos(value: N, block: T.(N) -> Unit): 
     return if (value.toDouble() > 0) {
         block.invoke(this, value)
         this
-    }
-    else throw IllegalArgumentException("Value is negative $value!")
+    } else throw IllegalArgumentException("Value is negative $value!")
 }
 
 fun IOException?.isInterruptedByThreadInterrupt(): Boolean {
@@ -53,4 +52,4 @@ internal fun String.hasSimpleError() = VKErrorUtils.hasSimpleError(this)
 internal fun String.toSimpleError(method: String? = null) = VKErrorUtils.parseSimpleError(this, method)
 internal fun String.toExecuteError(method: String, ignoredErrors: IntArray?) = VKErrorUtils.parseExecuteError(this, method, ignoredErrors)
 
-operator fun <E> android.support.v4.util.LongSparseArray<E>.set(key: Long, value: E) = put(key, value)
+operator fun <E> androidx.collection.LongSparseArray<E>.set(key: Long, value: E) = put(key, value)

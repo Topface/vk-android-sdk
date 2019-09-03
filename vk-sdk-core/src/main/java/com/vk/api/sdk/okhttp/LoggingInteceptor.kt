@@ -23,9 +23,9 @@
  ******************************************************************************/
 package com.vk.api.sdk.okhttp
 
-import android.support.v4.util.ArrayMap
-import com.vk.api.sdk.utils.log.Logger
+import androidx.collection.ArrayMap
 import com.vk.api.sdk.utils.getValue
+import com.vk.api.sdk.utils.log.Logger
 import com.vk.api.sdk.utils.threadLocal
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -36,7 +36,7 @@ class LoggingInteceptor(private val filterCredentials: Boolean, private val logg
         HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
                 val finalMessage = if (filterCredentials) filterCredentials(message) else message
-                logger.log(logger.logLevel, finalMessage)
+                logger.log(logger.logLevel.value, finalMessage)
             }
 
             private fun filterCredentials(msg: String): String {
@@ -52,12 +52,13 @@ class LoggingInteceptor(private val filterCredentials: Boolean, private val logg
         val bodyLength = chain.request().body()?.contentLength() ?: 0
         delegate.level =
                 if (bodyLength > 1024L) HttpLoggingInterceptor.Level.BASIC
-                else LogLevelMap.levelsMap[logger.logLevel]
+                else LogLevelMap.levelsMap[logger.logLevel.value]
         return delegate.intercept(chain)
     }
 
     object LogLevelMap {
         val levelsMap = ArrayMap<Logger.LogLevel, HttpLoggingInterceptor.Level>()
+
         init {
             levelsMap[Logger.LogLevel.NONE] = HttpLoggingInterceptor.Level.NONE
             levelsMap[Logger.LogLevel.ERROR] = HttpLoggingInterceptor.Level.NONE
