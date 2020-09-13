@@ -2,7 +2,7 @@ ext.sdkVersions = [
         code                            : '12',
         name                            : '2.1.1',
 
-        minSdk                          : 16,
+        minSdk                          : 19,
         targetSdk                       : 26,
         compileSdk                      : '28',
         buildTools                      : '28.0.3',
@@ -12,7 +12,7 @@ ext.sdkVersions = [
 
         picasso                         : '2.71828',
 
-        androidGradlePlugin             : '3.5.0',
+        androidGradlePlugin             : '3.5.3',
 ]
 
 ext.sdkLibraries = [
