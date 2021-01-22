@@ -134,7 +134,7 @@ object VKUtils {
                 val md = MessageDigest.getInstance("MD5")
                 val md5 = md.digest(h.toByteArray(charset("UTF-8")))
 
-                tmpBuilder.setLength(0)
+                tmpBuilder?.setLength(0)
                 hex(md5)
                 return tmpBuilder.toString()
             } catch (ignored: Exception) {
@@ -145,8 +145,8 @@ object VKUtils {
         @JvmStatic
         private fun hex(b: ByteArray) {
             for (aB in b) {
-                tmpBuilder.append(hex[aB.toInt() and (0xF0).toInt() shr 4])
-                tmpBuilder.append(hex[aB.toInt() and (0x0F).toInt()])
+                tmpBuilder?.append(hex[aB.toInt() and (0xF0).toInt() shr 4])
+                tmpBuilder?.append(hex[aB.toInt() and (0x0F).toInt()])
             }
         }
     }

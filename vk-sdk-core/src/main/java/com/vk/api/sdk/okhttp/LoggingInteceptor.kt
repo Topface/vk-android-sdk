@@ -47,13 +47,13 @@ class LoggingInteceptor(private val filterCredentials: Boolean, private val logg
         })
     }
 
-    override fun intercept(chain: Interceptor.Chain): Response {
+    override fun intercept(chain: Interceptor.Chain): Response? {
         // Do not log big bodies because of probability of OutOfMemoryError
         val bodyLength = chain.request().body()?.contentLength() ?: 0
-        delegate.level =
+        delegate?.level =
                 if (bodyLength > 1024L) HttpLoggingInterceptor.Level.BASIC
                 else LogLevelMap.levelsMap[logger.logLevel.value]
-        return delegate.intercept(chain)
+        return delegate?.intercept(chain)
     }
 
     object LogLevelMap {

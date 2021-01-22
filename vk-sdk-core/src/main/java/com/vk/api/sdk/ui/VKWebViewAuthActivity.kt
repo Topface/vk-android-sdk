@@ -51,7 +51,7 @@ import com.vk.api.sdk.utils.VKValidationLocker
 /**
  * Activity for showing authorization or validation WebView
  */
-class VKWebViewAuthActivity: Activity() {
+class VKWebViewAuthActivity : Activity() {
 
     private lateinit var webView: WebView
     private lateinit var progress: ProgressBar
@@ -90,7 +90,7 @@ class VKWebViewAuthActivity: Activity() {
     private fun loadUrl() {
         try {
             val urlToLoad = if (needValidationResult()) intent.getStringExtra(VK_EXTRA_VALIDATION_URL)
-                    else "https://oauth.vk.com/authorize?client_id=${params.appId}" +
+            else "https://oauth.vk.com/authorize?client_id=${params.appId}" +
                     "&scope=${params.getScopeString()}" +
                     "&redirect_uri=$REDIRECT_URL" +
                     "&display=mobile" +
@@ -116,7 +116,7 @@ class VKWebViewAuthActivity: Activity() {
         super.onDestroy()
     }
 
-    inner class OAuthWebViewClient: WebViewClient() {
+    inner class OAuthWebViewClient : WebViewClient() {
         private var hasError = false
 
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -138,7 +138,7 @@ class VKWebViewAuthActivity: Activity() {
             val resultParams = VKUtils.explodeQueryString(extraData)
             val resultCode = if (resultParams != null
                     && (resultParams.containsKey("error")
-                    || resultParams.containsKey("cancel"))) Activity.RESULT_CANCELED else Activity.RESULT_OK
+                            || resultParams.containsKey("cancel"))) Activity.RESULT_CANCELED else Activity.RESULT_OK
 
             setResult(resultCode, intent)
 
@@ -147,7 +147,7 @@ class VKWebViewAuthActivity: Activity() {
                 if (uri.getQueryParameter("success") != null) {
                     val token = uri.getQueryParameter("access_token")
                     val secret = uri.getQueryParameter("secret")
-                    val userId = uri.getQueryParameter("user_id").toInt()
+                    val userId = uri.getQueryParameter("user_id")?.toInt()
                     validationResult = VKApiValidationHandler.Credentials(secret, token, userId)
                 }
             }
@@ -216,13 +216,13 @@ class VKWebViewAuthActivity: Activity() {
 
         fun startForAuth(activity: Activity, params: VKAuthParams, code: Int) {
             val intent = Intent(activity, VKWebViewAuthActivity::class.java)
-                .putExtra(VK_EXTRA_AUTH_PARAMS, params.toBundle())
+                    .putExtra(VK_EXTRA_AUTH_PARAMS, params.toBundle())
             activity.startActivityForResult(intent, code)
         }
 
         fun startForValidation(context: Context, validationUrl: String) {
             val intent = Intent(context, VKWebViewAuthActivity::class.java)
-                .putExtra(VK_EXTRA_VALIDATION_URL, validationUrl)
+                    .putExtra(VK_EXTRA_VALIDATION_URL, validationUrl)
             context.startActivity(intent)
         }
     }
