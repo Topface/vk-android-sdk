@@ -45,12 +45,12 @@ object QueryStringGenerator {
                          version: String,
                          args: Map<String, String>): String {
         if (secret.isNullOrEmpty()) {
-            return generateQueryString(version, args, accessToken, appId,true)
+            return generateQueryString(version, args, accessToken, appId, true)
         }
-        val queryStringUnescaped = generateQueryString(version, args, accessToken, appId,false)
+        val queryStringUnescaped = generateQueryString(version, args, accessToken, appId, false)
         val sigArgs = "/method/$method?$queryStringUnescaped$secret"
         val md5 = md5(sigArgs)
-        val queryStringEscaped = generateQueryString(version, args, accessToken, appId,true)
+        val queryStringEscaped = generateQueryString(version, args, accessToken, appId, true)
         return "$queryStringEscaped&sig=$md5"
     }
 
@@ -60,8 +60,8 @@ object QueryStringGenerator {
                                     appId: Int,
                                     isApplyUrlEncode: Boolean): String {
         // Don't worry StringBuilder.plus operator fun used
-        strBuilder.clear()
-        var sb = strBuilder + "v=" + version + "&https=1&"
+        strBuilder?.clear()
+        var sb = (strBuilder ?: java.lang.StringBuilder("")) + "v=" + version + "&https=1&"
         for ((key, value) in args) {
             if (key != "v" && key != "access_token" && key != "api_id") {
                 sb = sb.plus(key) + "=" + value.encodeUrlAsUtf8(isApplyUrlEncode) + "&"

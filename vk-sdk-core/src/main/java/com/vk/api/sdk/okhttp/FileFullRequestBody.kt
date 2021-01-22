@@ -26,18 +26,15 @@ package com.vk.api.sdk.okhttp
 import android.content.Context
 import android.content.res.AssetFileDescriptor
 import android.net.Uri
-
 import com.vk.api.sdk.exceptions.VKLocalIOException
-
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import okio.BufferedSink
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.net.URLConnection
-
-import okhttp3.MediaType
-import okhttp3.RequestBody
-import okio.BufferedSink
 
 internal class FileFullRequestBody(private val context: Context?, private val fileUri: Uri?) : RequestBody() {
 
@@ -57,16 +54,16 @@ internal class FileFullRequestBody(private val context: Context?, private val fi
         val fileName = fileUri?.lastPathSegment
 
         var mimeType: String? =
-        if (fileName == null) {
-            null
-        } else {
-            try {
-                URLConnection.guessContentTypeFromName(fileName)
-            } catch (ex: Exception) {
-                null
-            }
+                if (fileName == null) {
+                    null
+                } else {
+                    try {
+                        URLConnection.guessContentTypeFromName(fileName)
+                    } catch (ex: Exception) {
+                        null
+                    }
 
-        }
+                }
         if (mimeType == null) {
             mimeType = "application/octet-stream"
         }
@@ -78,7 +75,7 @@ internal class FileFullRequestBody(private val context: Context?, private val fi
     override fun contentLength(): Long {
         var fd: AssetFileDescriptor? = null
         try {
-            fd = context?.contentResolver?.openAssetFileDescriptor(fileUri, "r")
+            fd = fileUri?.let { context?.contentResolver?.openAssetFileDescriptor(it, "r") }
             return fd?.length ?: throw FileNotFoundException("Cannot open uri: $fileUri")
         } catch (ex: FileNotFoundException) {
             throw VKLocalIOException(ex)
@@ -101,7 +98,7 @@ internal class FileFullRequestBody(private val context: Context?, private val fi
         try {
             val inputStream: FileInputStream // auto-closable
             try {
-                fileDescriptor = context?.contentResolver?.openAssetFileDescriptor(fileUri, "r")
+                fileDescriptor = fileUri?.let { context?.contentResolver?.openAssetFileDescriptor(it, "r") }
                 if (fileDescriptor == null) {
                     throw FileNotFoundException("Cannot open uri: $fileUri")
                 }

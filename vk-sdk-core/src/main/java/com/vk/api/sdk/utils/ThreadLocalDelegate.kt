@@ -30,7 +30,7 @@ import kotlin.reflect.KProperty
  * Provides operator function for declaring ThreadLocal var throght kotlin delegate syntax.
  */
 internal interface ThreadLocalDelegate<T> {
-    fun get(): T
+    fun get(): T?
 }
 
 internal fun <T> threadLocal(factory: () -> T): ThreadLocalDelegate<T> {
@@ -44,9 +44,9 @@ internal class ThreadLocalDelegateImpl<T>(val factory: () -> T) : ThreadLocalDel
         }
     }
 
-    override fun get(): T {
+    override fun get(): T? {
         return value.get()
     }
 }
 
-internal operator fun <T> ThreadLocalDelegate<T>.getValue(any: Any?, property: KProperty<*>): T = this.get()
+internal operator fun <T> ThreadLocalDelegate<T>.getValue(any: Any?, property: KProperty<*>): T? = this.get()
