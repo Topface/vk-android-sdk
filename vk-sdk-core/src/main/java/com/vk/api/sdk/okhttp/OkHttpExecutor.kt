@@ -246,7 +246,7 @@ open class OkHttpExecutor(protected val config: OkHttpExecutorConfig) {
     private fun updateClient(provider: VKOkHttpProvider) {
         provider.updateClient(object : VKOkHttpProvider.BuilderUpdateFunction {
             override fun update(builder: OkHttpClient.Builder): OkHttpClient.Builder {
-                if (Logger.LogLevel.NONE != config.logger.logLevel) {
+                if (Logger.LogLevel.NONE != config.logger.logLevel.value) {
                     builder.addInterceptor(LoggingInterceptor(config.logFilterCredentials, config.logger))
                 }
                 return builder
