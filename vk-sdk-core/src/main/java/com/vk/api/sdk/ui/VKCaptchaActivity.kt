@@ -115,12 +115,12 @@ class VKCaptchaActivity: Activity() {
     }
 
     private fun loadImage() {
-        val url = intent.getStringExtra(KEY_URL)
-
-        VKScheduler.networkExecutor.submit {
-            val data = VKLoader.load(url)
-            data?.let {
-                displayImage(BitmapFactory.decodeByteArray(data, 0, data.size))
+        intent.getStringExtra(KEY_URL)?.let { url ->
+            VKScheduler.networkExecutor.submit {
+                val data = VKLoader.load(url)
+                data?.let {
+                    displayImage(BitmapFactory.decodeByteArray(data, 0, data.size))
+                }
             }
         }
     }

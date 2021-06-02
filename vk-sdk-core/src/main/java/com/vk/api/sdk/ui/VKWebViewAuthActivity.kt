@@ -89,14 +89,16 @@ class VKWebViewAuthActivity : Activity() {
 
     private fun loadUrl() {
         try {
-            val urlToLoad = if (needValidationResult()) intent.getStringExtra(VK_EXTRA_VALIDATION_URL)
+            (if (needValidationResult()) intent.getStringExtra(VK_EXTRA_VALIDATION_URL)
             else "https://oauth.vk.com/authorize?client_id=${params.appId}" +
                     "&scope=${params.getScopeString()}" +
                     "&redirect_uri=$REDIRECT_URL" +
                     "&display=mobile" +
                     "&v=${VK.getApiVersion()}" +
                     "&response_type=token&revoke=1"
-            webView.loadUrl(urlToLoad)
+                    )?.let { urlToLoad ->
+                        webView.loadUrl(urlToLoad)
+                    }
         } catch (e: Exception) {
             setResult(Activity.RESULT_CANCELED)
             finish()
