@@ -52,7 +52,7 @@ class LoggingInterceptor(private val filterCredentials: Boolean, private val log
         val bodyLength = chain.request().body()?.contentLength() ?: 0
         delegate?.level =
                 if (bodyLength > 1024L) HttpLoggingInterceptor.Level.BASIC
-                else LogLevelMap.levelsMap[logger.logLevel.value]
+                else LogLevelMap.levelsMap[logger.logLevel.value] ?: HttpLoggingInterceptor.Level.BASIC
         return delegate?.intercept(chain)
     }
 

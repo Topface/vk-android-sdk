@@ -28,7 +28,6 @@ apply from: '../dependencies.gradle'
 
 android {
     compileSdkVersion "$sdkVersions.compileSdk".toInteger()
-    buildToolsVersion "$sdkVersions.buildTools"
 
     defaultConfig {
         minSdkVersion "$sdkVersions.minSdk"
