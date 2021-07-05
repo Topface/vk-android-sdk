@@ -96,7 +96,7 @@ class VKWebViewAuthActivity : Activity() {
                     "&display=mobile" +
                     "&v=${VK.getApiVersion()}" +
                     "&response_type=token&revoke=1"
-            webView.loadUrl(urlToLoad)
+            urlToLoad?.let { webView.loadUrl(it)}
         } catch (e: Exception) {
             setResult(Activity.RESULT_CANCELED)
             finish()
