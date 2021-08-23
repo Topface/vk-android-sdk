@@ -36,8 +36,8 @@ configurations {
 }
 
 dependencies {
-    implementation project(':core')
-    implementation project(":id")
+    implementation project(':libs:vk-android-sdk:core')
+    implementation project(":libs:vk-android-sdk:id")
     implementation sdkLibraries.kotlin
     implementation sdkLibraries.gson
 }

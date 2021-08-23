@@ -81,8 +81,8 @@ object VK {
      */
     @JvmStatic
     @JvmOverloads
-    fun login(activity: Activity, scopes: Collection<VKScope> = emptySet()) {
-        authManager.login(activity, scopes)
+    fun login(activity: Activity, appId: Int, scopes: Collection<VKScope> = emptySet()) {
+        authManager.login(activity, appId, scopes)
     }
 
     /**
@@ -196,7 +196,7 @@ object VK {
      * Also you can use your own async mechanism, like coroutines or RX
      */
     @JvmStatic
-    fun <T>execute(request: ApiCommand<T>, callback: VKApiCallback<T>? = null) {
+    fun <T> execute(request: ApiCommand<T>, callback: VKApiCallback<T>? = null) {
         VKScheduler.networkExecutor.submit {
             try {
                 val result = executeSync(request)
