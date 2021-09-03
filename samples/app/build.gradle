@@ -33,7 +33,6 @@ android {
     defaultConfig {
         applicationId = "com.vk.sdk.sample"
         minSdkVersion "$sdkVersions.minSdk"
-        targetSdkVersion "$sdkVersions.targetSdk"
     }
 
     compileOptions {
