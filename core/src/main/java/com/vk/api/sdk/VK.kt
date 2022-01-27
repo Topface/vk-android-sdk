@@ -87,8 +87,8 @@ object VK {
      */
     @JvmStatic
     @JvmOverloads
-    fun login(activity: Activity, scopes: Collection<VKScope> = emptySet()) {
-        authManager.login(activity, scopes)
+    fun login(activity: Activity, appId: Int = getAppId(activity), scopes: Collection<VKScope> = emptySet()) {
+        authManager.login(activity, appId, scopes)
     }
 
     /**
