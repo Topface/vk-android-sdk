@@ -40,8 +40,6 @@ build/
 target/
 build-maven
 
-# Gradle wrapper
-/gradle
-/gradlew
-/gradlew.bat
-gradle.properties
+!gradle
+
+notTranslatedStrings/

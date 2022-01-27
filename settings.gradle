@@ -1,1 +1,4 @@
-include ':vksdk_library', ':VKTestApplication'
+include ':samples:app'
+include ':core'
+include ':api'
+include ':id'
