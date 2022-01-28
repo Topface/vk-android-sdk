@@ -111,7 +111,7 @@ open class VKWebViewAuthActivity: Activity() {
                 uri.build().toString()
             }
 
-            webView.loadUrl(urlToLoad)
+            urlToLoad?.let { webView.loadUrl(urlToLoad) }
         } catch (e: Exception) {
             setResult(RESULT_CANCELED)
             finish()
@@ -158,7 +158,7 @@ open class VKWebViewAuthActivity: Activity() {
                 }
                 return false
             } else {
-                if (!url.startsWith(redirectUrl)) {
+                if (redirectUrl == null || !url.startsWith(redirectUrl as String)) {
                     return false
                 }
                 val intent = Intent(VK_RESULT_INTENT_NAME)

@@ -118,9 +118,11 @@ class VKCaptchaActivity: Activity() {
         val url = intent.getStringExtra(KEY_URL)
 
         VKScheduler.networkExecutor.submit {
-            val data = VKLoader.load(url)
-            data?.let {
-                displayImage(BitmapFactory.decodeByteArray(data, 0, data.size))
+            url?.let {
+                val data = VKLoader.load(url)
+                data?.let {
+                    displayImage(BitmapFactory.decodeByteArray(data, 0, data.size))
+                }
             }
         }
     }
