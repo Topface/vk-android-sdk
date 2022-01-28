@@ -88,7 +88,7 @@ dependencies {
     testImplementation testLibraries.junit
     testImplementation testLibraries.mockito
 
-    implementation project(":id")
+    implementation project(":lib:vk-android-sdk:id")
 }
 
 apply from: "../publish.gradle"
