@@ -39,7 +39,7 @@ ext.sdkVersions = [
 
         picasso                         : '2.71828',
 
-        androidGradlePlugin             : '4.2.2',
+        androidGradlePlugin             : '8.10.1',
 
         gson                            : '2.8.8',
 

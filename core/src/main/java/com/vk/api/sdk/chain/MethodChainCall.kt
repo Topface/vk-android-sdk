@@ -62,13 +62,13 @@ open class MethodChainCall<T>(
         if (deviceId.isBlank()) {
             deviceId = defaultDeviceId
         }
-        callBuilder.args(VKApiCodes.PARAM_DEVICE_ID, deviceId.toLowerCase(Locale.getDefault()))
+        callBuilder.args(VKApiCodes.PARAM_DEVICE_ID, deviceId.lowercase(Locale.getDefault()))
 
         var lang = callBuilder.args(VKApiCodes.PARAM_LANG) ?: ""
         if (lang.isBlank()) {
             lang = defaultLang
         }
-        callBuilder.args(VKApiCodes.PARAM_LANG, lang.toLowerCase(Locale.getDefault()))
+        callBuilder.args(VKApiCodes.PARAM_LANG, lang.lowercase(Locale.getDefault()))
 
         return runRequest(callBuilder.build())
     }
