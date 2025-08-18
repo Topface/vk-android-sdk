@@ -38,12 +38,10 @@ import android.util.DisplayMetrics
 import android.view.Display
 import android.view.WindowManager
 import android.webkit.CookieManager
-import android.webkit.CookieSyncManager
 import androidx.annotation.RequiresApi
 import okio.Buffer
 import java.math.BigInteger
 import java.security.MessageDigest
-import java.util.*
 
 object VKUtils {
     @JvmStatic
@@ -69,7 +67,12 @@ object VKUtils {
      * @param allowedPackage the only package that allowed for that action
      */
     @JvmStatic
-    fun isIntentAvailable(context: Context, action: String, data: Uri?, allowedPackage: String): Boolean {
+    fun isIntentAvailable(
+        context: Context,
+        action: String,
+        data: Uri?,
+        allowedPackage: String
+    ): Boolean {
         val resolveInfos = context.packageManager
             ?.queryIntentActivities(Intent(action, data), PackageManager.MATCH_DEFAULT_ONLY)
             ?: return false
@@ -103,16 +106,17 @@ object VKUtils {
 
             @SuppressLint("PackageManagerGetSignatures")
             val info = context.packageManager.getPackageInfo(
-                    packageName,
-                    PackageManager.GET_SIGNATURES)
+                packageName,
+                PackageManager.GET_SIGNATURES
+            )
 
             if (info.signatures == null) {
                 return null
             }
 
-            val result = arrayOfNulls<String>(info.signatures.size)
+            val result = arrayOfNulls<String>(info.signatures?.size ?: 0)
             var i = 0
-            info.signatures.forEach {
+            info.signatures?.forEach {
                 val md = MessageDigest.getInstance("SHA")
                 md.update(it.toByteArray())
                 result[i++] = toHex(md.digest())
@@ -126,14 +130,7 @@ object VKUtils {
     @Suppress("DEPRECATION")
     fun clearAllCookies(context: Context) {
         val cookieManager = CookieManager.getInstance()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            cookieManager.removeAllCookies(null)
-        } else {
-            val cookieSyncManager = CookieSyncManager.createInstance(context)
-            cookieSyncManager.startSync()
-            cookieManager.removeAllCookie()
-            cookieSyncManager.stopSync()
-        }
+        cookieManager.removeAllCookies(null)
     }
 
     private fun toHex(bytes: ByteArray): String {
@@ -185,13 +182,13 @@ object VKUtils {
         while (i < string.length) {
             var c = string.codePointAt(i)
             i += Character.charCount(c)
-            if (c in 0x20 .. 0x7e) continue
+            if (c in 0x20..0x7e) continue
 
             val buffer = Buffer()
             buffer.writeUtf8(string, 0, i)
             while (i < string.length) {
                 c = string.codePointAt(i)
-                buffer.writeUtf8CodePoint(if (c in 0x20 .. 0x7e) c else '?'.toInt())
+                buffer.writeUtf8CodePoint(if (c in 0x20..0x7e) c else '?'.toInt())
                 i += Character.charCount(c)
             }
             return buffer.readUtf8()
@@ -200,7 +197,24 @@ object VKUtils {
     }
 
     object MD5 {
-        private val hex = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f')
+        private val hex = charArrayOf(
+            '0',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            'a',
+            'b',
+            'c',
+            'd',
+            'e',
+            'f'
+        )
         private val tmpBuilder by threadLocal { StringBuilder() }
 
         @JvmStatic

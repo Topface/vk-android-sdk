@@ -10,6 +10,7 @@ sdkPublish.POM_NAME = sdkPublish.POM_ID_ARTIFACT_ID
 sdkPublish.POM_DESCRIPTION = sdkPublish.POM_ID_ARTIFACT_ID
 
 android {
+    namespace = "com.vk.sdk.id"
     compileSdkVersion "$sdkVersions.compileSdk".toInteger()
     buildToolsVersion "$sdkVersions.buildTools"
 
