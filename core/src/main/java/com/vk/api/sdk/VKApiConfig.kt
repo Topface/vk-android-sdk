@@ -147,12 +147,12 @@ data class VKApiConfig(
     }
 
     companion object {
-        const val DEFAULT_DOMAIN = "vk.com"
+        const val DEFAULT_DOMAIN = "vk.ru"
         const val DEFAULT_LANGUAGE = "en"
         const val DEFAULT_API_VERSION = "5.131"
-        const val DEFAULT_API_DOMAIN = "api.vk.com"
-        const val DEFAULT_OAUTH_DOMAIN = "oauth.vk.com"
-        const val DEFAULT_STATIC_DOMAIN = "static.vk.com"
+        const val DEFAULT_API_DOMAIN = "api.vk.ru"
+        const val DEFAULT_OAUTH_DOMAIN = "oauth.vk.ru"
+        const val DEFAULT_STATIC_DOMAIN = "static.vk.ru"
         const val DEFAULT_API_ENDPOINT = "https://$DEFAULT_API_DOMAIN/method"
     }
 }

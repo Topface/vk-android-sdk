@@ -141,7 +141,7 @@ open class OkHttpExecutor(protected val config: OkHttpExecutorConfig) {
     @Throws(VKApiException::class)
     protected fun validateQueryString(call: OkHttpMethodCall, paramsString: String): String {
         if (call.method.startsWith("execute.")) {
-            val uri = Uri.parse("https://vk.com/?$paramsString")
+            val uri = Uri.parse("https://vk.ru/?$paramsString")
             if (uri.getQueryParameters("method").contains("execute")
                     && !uri.getQueryParameters("code").isNullOrEmpty()) {
                 throw VKApiExecutionException(

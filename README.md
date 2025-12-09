@@ -57,7 +57,7 @@ private fun loadUrl() {
     try {
         val urlToLoad = if (needValidationResult()) intent.getStringExtra(VK_EXTRA_VALIDATION_URL)
     else {
-        val uri = Uri.parse("https://oauth.vk.com/authorize").buildUpon()
+        val uri = Uri.parse("https://oauth.vk.ru/authorize").buildUpon()
         val params = getUrlParams()
         for ((key, value) in params) {
             uri.appendQueryParameter(key, value)

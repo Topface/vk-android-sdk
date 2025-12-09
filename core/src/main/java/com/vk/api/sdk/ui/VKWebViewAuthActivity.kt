@@ -1,7 +1,7 @@
 /*******************************************************************************
  * The MIT License (MIT)
  *
- * Copyright (c) 2019 vk.com
+ * Copyright (c) 2019 vk.ru
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -103,7 +103,7 @@ open class VKWebViewAuthActivity: Activity() {
         try {
             val urlToLoad = if (needValidationResult()) intent.getStringExtra(VK_EXTRA_VALIDATION_URL)
                     else {
-                val uri = Uri.parse("https://oauth.vk.com/authorize").buildUpon()
+                val uri = Uri.parse("https://oauth.vk.ru/authorize").buildUpon()
                 val params = getUrlParams()
                 for ((key, value) in params) {
                     uri.appendQueryParameter(key, value)

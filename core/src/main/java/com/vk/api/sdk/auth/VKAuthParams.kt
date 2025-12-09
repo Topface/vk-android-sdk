@@ -32,7 +32,7 @@ class VKAuthParams @JvmOverloads constructor(val appId: Int, val redirectUrl: St
 
     init {
         if (appId == 0) {
-            throw IllegalStateException("AppId is empty! Find out how to get your appId at https://vk.com/dev/access_token")
+            throw IllegalStateException("AppId is empty! Find out how to get your appId at https://vk.ru/dev/access_token")
         }
         this.scope = HashSet(scope)
     }
@@ -66,7 +66,7 @@ class VKAuthParams @JvmOverloads constructor(val appId: Int, val redirectUrl: St
         private const val VK_EXTRA_SCOPE = "scope"
         private const val VK_EXTRA_REDIRECT_URL = "redirect_url"
 
-        const val DEFAULT_REDIRECT_URL = "https://oauth.vk.com/blank.html"
+        const val DEFAULT_REDIRECT_URL = "https://oauth.vk.ru/blank.html"
 
         fun fromBundle(bundle: Bundle?): VKAuthParams? {
             if (bundle == null) {
